@@ -7,10 +7,22 @@ For more information on this file, see
 https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 """
 
+from daphne import server
 import os
 
+from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
+import webapps.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lab1.settings')
 
-application = get_asgi_application()
+application = ProtocolTypeRouter({
+    "http": get_asgi_application(),
+    "websocket": AuthMiddlewareStack(
+        URLRouter(
+            webapps.routing.websocket_urlpatterns
+        )
+    ),
+})
+

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webapps',
     'rest_framework',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +72,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'lab1.wsgi.application'
+ASGI_APPLICATION = "lab1.asgi.application"
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 
 # Database

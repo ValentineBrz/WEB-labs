@@ -34,5 +34,4 @@ urlpatterns = [
          ),
          name='redoc'),
     path('', include('webapps.urls')),
-
 ]

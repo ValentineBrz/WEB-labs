@@ -1,10 +1,14 @@
 from rest_framework import serializers
 from webapps.models import Article, Comment, Account
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 class AccountSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Account
+        model = User
         fields = ['username', 'email', 'first_name', 'last_name', 'birthdate', 'gender']
 
 
@@ -13,7 +17,7 @@ class AccountCreateSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True)
 
     class Meta:
-        model = Account
+        model = User
         fields = ('username', 'password', 'password2', 'email', 'first_name', 'last_name', 'birthdate', 'gender')
 
     def validate(self, attrs):
